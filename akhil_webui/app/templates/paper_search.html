@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Author Search</title>
+</head>
+<body>
+    <h1>Search for Authors and Their Papers</h1>
+    <form action="{{ url_for('main.paper_search') }}" method="post">
+        <label for="author_name">Enter Paper ID:</label>
+        <input type="text" id="author_name" name="author_name" required>
+        <input type="submit" value="Search">
+    </form>
+    {% if author_name %}
+        <h2>Paper: {{ author_name }}</h2>
+        {% if related_authors %}
+            <h3>Related Authors:</h3>
+            <ul>
+                {% for author in related_authors %}
+                    <li>{{ author }}</li>
+                {% endfor %}
+            </ul>
+            <h3> Venue: </h3>
+            <ul>
+                {% for ven in venue %}
+                    <li>{{ven}}</li>
+                {% endfor %}
+            </ul>
+            <!-- Add a form for visualization -->
+            <form action="{{ url_for('main.visualize_graph') }}" method="post">
+                <input type="hidden" name="author_name" value="{{ author_name }}">
+                <input type="submit" value="Visualize">
+            </form>
+        {% else %}
+            <p>No related papers found for this author.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

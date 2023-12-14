@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Author Search</title>
+    <!-- Add any other head elements here -->
+</head>
+<body>
+    <h1>Search for Authors and Their Papers</h1>
+    <form id ="authorSearchForm">
+        <label for="author_id">Enter Author ID:</label>
+        <input type="text" name="author_id" placeholder="Author ID" id="authorId">
+        <span> <b> OR </b> </span>
+        <label for="author_name">Enter Author Name:</label>
+        <input type="text" name="author_name" placeholder="Author Name" id ="authorName">
+        <input type="submit" value="Search">
+    </form>
+
+
+    <div id="results">
+        <!-- Results will be displayed here -->
+    </div>
+    <iframe id="graphFrame" style="width:100%; height:600px; display:none;"></iframe>
+
+
+    <script>
+        document.getElementById('authorSearchForm').onsubmit = function(event) {
+            event.preventDefault();
+            var authorName = document.getElementById('authorName').value;
+            var authorId = document.getElementById('authorId').value;
+
+            // AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/author_search', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    updateResults(response);
+                }
+            };
+            xhr.send(JSON.stringify({author_name: authorName,author_id: authorId}));
+        };
+
+
+        function updateResults(data) {
+            var resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h2>' + data.author_name + '</h2>';
+
+            var list = '<ul>';
+            for (var i = 0; i < data.related_papers_venues.length; i++) {
+                list += '<li>' + data.related_papers_venues[i] + '</li>';
+            }
+            list += '</ul>';
+            resultsDiv.innerHTML += list;
+
+            var visualizeButton = document.createElement('button');
+            visualizeButton.innerHTML = 'Visualize';
+            visualizeButton.id = 'visualizeButton';
+            resultsDiv.appendChild(visualizeButton);
+
+            // Add onclick event to the Visualize button
+            visualizeButton.onclick = function() {
+                var graphFrame = document.getElementById('graphFrame');
+                graphFrame.style.display = 'block';
+                graphFrame.src = '/view_graph';
+            };
+        }
+    </script>
+</body>
+</html>

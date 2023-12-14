@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Author Search</title>
+</head>
+<body>
+    <h1>Search for Authors and Their Papers</h1>
+    <form action="{{ url_for('main.venue_search') }}" method="post">
+        <label for="author_name">Enter Venue ID:</label>
+        <input type="text" name="author_name" required>
+        <input type="submit" value="Search">
+    </form>
+    {% if author_name %}
+        <h2>Author: {{ author_name }}</h2>
+        {% if related_papers_at_venues %}
+            <h3>Related Papers:</h3>
+            <ul>
+                {% for paper in related_papers_at_venues %}
+                    <li>{{ paper }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No related papers found for this author.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

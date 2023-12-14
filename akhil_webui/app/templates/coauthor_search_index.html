@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Finding Co-authorship</title>
+</head>
+<body>
+    <h1>Enter Authors</h1>
+    <form action="{{ url_for('main.selected_authors') }}" method="post">
+        <label for="author1_id">Author 1 ID:</label>
+        <input type="text" name="author1_id" id="author1_id" placeholder="Enter Author ID 1">
+        <span>OR</span>
+        <label for="author1_name">Author 1 Name:</label>
+        <input type="text" name="author1_name" id="author1_name" placeholder="Enter Author Name 1">
+        <br><br>
+        <span>AND</span>
+        <br><br>
+        <label for="author2_id">Author 2 ID:</label>
+        <input type="text" name="author2_id" id="author2_id" placeholder="Enter Author ID 2">
+        <span>OR</span>
+        <label for="author2_name">Author 2 Name:</label>
+        <input type="text" name="author2_name" id="author2_name" placeholder="Enter Author Name 2">
+        <br><br>
+        <p>Please enter the author IDs from 0 to 17430. Or author exact author names Or a combination of ID and author</p>
+        <p> Author 1 ID or name and Author 2 ID or name are required! </p>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Author and Paper Search</title>
+    <style>
+        /* Add some basic styles for tabs */
+        .tab {
+            overflow: hidden;
+        }
+
+        .tab button {
+            background-color: #f2f2f2;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: 0.3s;
+        }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Style the tabs content */
+        .tabcontent {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Author and Paper Search</h1>
+    <div class="tab">
+        <!-- Use the "window.location.href" to directly redirect to the specified URL -->
+        <button class="tablinks" onclick=window.location.href='{{ url_for("main.co_authorship") }}'>selected_authors</button>
+        <button class="tablinks" onclick=window.location.href='{{ url_for("main.paper_search") }}'>paper_search</button>
+        <button class="tablinks" onclick=window.location.href='{{ url_for("main.venue_search") }}'>venue_search</button>
+        <button class="tablinks" onclick=window.location.href='{{ url_for("main.author_search") }}'>author_search</button>
+
+    </div>
+
+    <!-- Content for the "Co-authorship" tab -->
+    <div id="CoAuthorship" class="tabcontent">
+        <h2>Co-authorship</h2>
+        <p>This tab is for co-authorship search.</p>
+    </div>
+
+    <!-- Content for the "Paper Search" tab -->
+    <div id="PaperSearch" class="tabcontent">
+        <h2>Paper Search</h2>
+        <p>This tab is for paper search.</p>
+    </div>
+</body>
+</html>
+
+
